@@ -4,6 +4,7 @@
 
 ```cmd
 pip install schedule_parser_portal_petrocollege
+pip install mysql-connector-python
 ```
 
 ## Apply mysql dump

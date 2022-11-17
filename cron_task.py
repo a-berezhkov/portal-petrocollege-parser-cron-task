@@ -1,21 +1,13 @@
-# pip install mysql-connector-python
-import mysql.connector
-import sys
 import os
 import time
-import Lesson, File, SharePoint
+import datetime
 
 start_time = time.time()
 
 from File import *
+import sql
 
-cnx = mysql.connector.connect(
-    host="5.23.54.31",
-    user="admin_college",
-    password="rtdCUTCm7v",
-    database="admin_college"
-)
-cursor = cnx.cursor(dictionary=True)
+cursor = sql.cursor
 # Get teacher record
 drop_table_query = "SELECT * FROM teacher"
 cursor.execute(drop_table_query)
@@ -191,10 +183,9 @@ for file_in_db in files_in_db:
 
                 })
                 item['schedule_has_student_group_id'] = cursor.lastrowid
-                print("SCHEDULE STUDENT ID", cursor.lastrowid)
-
+    now = datetime.now()
     cursor.execute("""
     UPDATE `file` SET `is_done`=%s, `date_done` = %s WHERE `file`.`id` = %s;
-    """, ("true", "NOW()", file_in_db["id"]))
-    cursor.commit()
-    print("file" + file_in_db["path"] +" done in %s seconds " % (time.time() - start_time))
+    """, (1, now.strftime("%Y-%m-%d"), file_in_db["id"]))
+    sql.cnx.commit()
+    print("file" + file_in_db["path"] + " done in %s seconds " % (time.time() - start_time))
