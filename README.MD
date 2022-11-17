@@ -29,7 +29,7 @@ cursor = cnx.cursor(dictionary=True)
 
 ## Set Login|password in  ```parser_files.py```
 
-```json
+```python
 share_point = SharePoint.SharePoint('login', 'password')
 ```
 
